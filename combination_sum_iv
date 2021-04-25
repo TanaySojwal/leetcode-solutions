@@ -1,0 +1,19 @@
+class Solution {
+    public int combinationSum4(int[] nums, int target) {
+        return howSum(nums, target, new HashMap<Integer, Integer>());
+    }
+    
+    public static int howSum(int[] nums, int target, HashMap<Integer, Integer> memo) {
+        if (memo.containsKey(target)) return memo.get(target);
+        if (target < 0) return 0;
+        if (target == 0) return 1;
+        int count = 0;
+        for (int num : nums) {
+            int rem = target - num;
+            int remComb = howSum(nums, rem, memo);
+            count += remComb;
+        }
+        memo.put(target, count);
+        return count;
+    }
+}
