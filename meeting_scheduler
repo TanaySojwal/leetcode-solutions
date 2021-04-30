@@ -1,0 +1,60 @@
+/*
+Pseudocode
+
+1. Sort slots1 and slots2 array in ascending order of the start time.
+Use Arrays.sort() with Comparator in the 2nd parameter.
+
+2. Initialize two pointers at index 0.
+
+3. WHILE pointer for the length of slots1 is less than the length of slots1
+and pointer for the length of slots2 is less than the length of slots2.
+
+    a. Initialize two arrays to hold the current slot for each
+    co-worker.
+
+    b. Initialize two integers: 1> to store the max start time available
+    between two co-worker's current available slots. 2> to store the minimum
+    end time between two co-worker's current available slots.
+
+    c. IF duration is within the range of max start time and min end time,
+    return start time and start time + duration as array.
+
+    ELSE IF end time of co-worker A less than end time of co-worker B, then
+    increment A's pointer.
+
+    ELSE IF end time of co-worker B less than end time of co-worker A, then
+    increment B's pointer.
+
+    ELSE increment both pointers.
+
+4. Return empty array. No overlapping slots present in the given input.
+*/
+
+class Solution {
+    public List<Integer> minAvailableDuration(int[][] slots1, int[][] slots2, int duration) {
+        Arrays.sort(slots1, (a, b) -> a[0] - b[0]);
+        Arrays.sort(slots2, (a, b) -> a[0] - b[0]);
+
+        int p1 = 0;
+        int p2 = 0;
+
+        while (p1 < slots1.length && p2 < slots2.length) {
+            int[] curr1 = slots1[p1];
+            int[] curr2 = slots2[p2];
+
+            int start = Math.max(curr1[0], curr2[0]);
+            int end = Math.min(curr1[1], curr2[1]);
+
+            if (end - start >= duration)
+                return Arrays.asList(start, start + duration);
+            else if (curr1[1] < curr2[1]) p1++;
+            else if (curr2[1] < curr1[1]) p2++;
+            else {
+                p1++;
+                p2++;
+            }
+        }
+
+        return new ArrayList<>();
+    }
+}

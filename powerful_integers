@@ -1,0 +1,20 @@
+/*
+Pseudocode
+
+1. Create a hashset to avoid duplication, result
+
+2. FOR xi = 1, x1
+
+*/
+class Solution {
+    public List<Integer> powerfulIntegers(int x, int y, int bound) {
+        Set<Integer> result = new HashSet<Integer>();
+        for (int xi = 1; xi < bound; x1 *= x) {
+            for (int yi = 1; xi + yi <= bound; yi *= y) {
+                result.add(xi + yi);
+                if (y == 1) break;
+            }
+            if (x == 1) break;
+        }
+    }
+}
