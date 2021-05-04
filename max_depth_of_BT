@@ -1,0 +1,31 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+/*
+pseudocode
+
+1. Call maxDepth recursively, as problem can be divided into similar smaller sub problems
+2. IF curr node is null return 0.
+3. IF curr node has no children return 1.
+4. return 1 + maximum of the max depths from curr node's left and right child.
+*/
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) return 1;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    }
+}

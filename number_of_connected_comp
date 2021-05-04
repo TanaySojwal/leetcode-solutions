@@ -1,0 +1,50 @@
+/*
+Pseudocode
+
+1. Initialise adjacency map, adj.
+2. Initialise visited array to keep track of visited nodes.
+3. Initialise count = 0
+4. FOR node 0 to n - 1
+    4a. IF not visited then increment count and DFS the current node.
+    
+*/
+class Solution {
+    public int countComponents(int n, int[][] edges) {
+        HashMap<Integer, List<Integer>> adj = new HashMap<Integer, List<Integer>>();
+        
+        init(adj, n, edges);
+        
+        boolean[] visited = new boolean[n];    
+        for (int i = 0; i < n; i++)
+            visited[i] = false;
+        
+        int count = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                count++;
+                dfs(i, adj, visited);
+            }
+        }
+        
+        return count;
+    }
+    
+    public void dfs(int v, HashMap<Integer, List<Integer>> adj, boolean[] visited) {
+        visited[v] = true;
+        for (Integer neighbour : adj.get(v)) {
+            if (!visited[neighbour])
+                dfs(neighbour, adj, visited);
+        }
+    }
+    
+    public void init(HashMap<Integer, List<Integer>> adj, int n, int[][] edges) {
+        for (int i = 0; i < n; i++) 
+            adj.put(i, new ArrayList<Integer>());
+        
+        for (int i = 0; i < edges.length; i++) {
+            adj.get(edges[i][0]).add(edges[i][1]);
+            adj.get(edges[i][1]).add(edges[i][0]);
+        }
+    }
+}
