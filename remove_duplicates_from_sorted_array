@@ -1,0 +1,25 @@
+// Algorithm
+
+// 1. Initiate two ptrs pRecentUnique=0 & pCurrent=0 and loop through the array using pCurrent.
+//     a. When an element nums[pCurrent] is encountered check if nums[pCurrent] == nums[pRecentUnique]
+//         b. If true, then increment pCurrent and let pRecentUnique be the same.
+//         c. If false, then increment both pCurrent and pRecentUnique, 
+//             set nums[pRecentUnique] = nums[pCurrent]
+// 2. pRecentUnique is the position where last unique number is stored.
+//     Rest of the array to be marked as null/0.
+        
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
+        int pRecentUnique = 0, pCurrent = 0;
+        while (pCurrent < nums.length) {
+            if (nums[pCurrent] != nums[pRecentUnique]) {
+                pRecentUnique++;
+                nums[pRecentUnique] = nums[pCurrent];
+            }
+            pCurrent++;
+        }
+        return pRecentUnique + 1;
+    }
+}
